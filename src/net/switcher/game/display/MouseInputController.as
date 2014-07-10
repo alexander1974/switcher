@@ -7,6 +7,7 @@ package net.switcher.game.display
     import flash.geom.Point;
 
     import net.switcher.game.Constants;
+    import net.switcher.game.components.Display;
     import net.switcher.game.components.Grid;
     import net.switcher.game.components.GridPosition;
     import net.switcher.game.components.PieceHighlight;
@@ -20,6 +21,8 @@ package net.switcher.game.display
         {
             this.displayObjectContainer = displayObjectContainer;
             this.gameBoard = gameBoard;
+
+            this.displayObjectContainer.mouseChildren = false;
         }
 
         private var displayObjectContainer:DisplayObjectContainer;
@@ -78,7 +81,7 @@ package net.switcher.game.display
                 return;
             }
 
-            var pieceSprite:PieceSprite = piece.get(PieceSprite);
+            var pieceSprite:PieceSprite = (piece.get(Display) as Display).displayObject as PieceSprite;
             var piecePosition:GridPosition = piece.get(GridPosition) as GridPosition;
             var center:Point = BoardHelper.gridPositionToPoint(piecePosition);
 

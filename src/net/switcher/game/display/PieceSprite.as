@@ -1,22 +1,22 @@
 package net.switcher.game.display
 {
     import flash.display.DisplayObject;
-    import flash.display.Sprite;
-    import flash.geom.Point;
+    import flash.display.MovieClip;
 
-    public class PieceSprite extends Sprite
+    import net.switcher.game.Constants;
+
+    public class PieceSprite extends MovieClip
     {
         public function PieceSprite(asset:DisplayObject)
         {
             super();
 
             cacheAsBitmap = true;
-            _anchorPoint = new Point(0.5, 0.5);
+            setCanvas();
             setTexture(asset);
         }
 
         private var asset:DisplayObject;
-        private var _anchorPoint:Point;
 
         public function removeFromParent():void
         {
@@ -32,31 +32,16 @@ package net.switcher.game.display
             {
                 removeChild(this.asset);
             }
-            asset.x = -asset.width * _anchorPoint.x;
-            asset.y = -asset.height * (1 - _anchorPoint.y);
+            asset.x = Math.round(-asset.width / 2);
+            asset.y = Math.round(-asset.height / 2);
             this.asset = asset;
             addChildAt(asset, 0);
         }
 
-        public function getTexture():DisplayObject
+        private function setCanvas():void
         {
-            var asset:DisplayObject = this.asset;
-            removeChild(asset);
-            this.asset = null;
-            return asset;
-        }
-
-        /**
-         * Sets the anchor point of the sprite the same way it's done in Objective-C
-         * anchor.x and anchor.y are in relation to the Sprite size
-         * the 0:0 point is in the bottom left corner, 1:1 is in the top right.
-         * @param anchor
-         */
-        public function setAnchorPoint(anchor:Point):void
-        {
-            _anchorPoint.x = anchor.x;
-            _anchorPoint.y = anchor.y;
-            setTexture(asset);
+            graphics.beginFill(0xFFFFFF, 0);
+            graphics.drawRect(-Constants.PIECE_SIZE / 2, -Constants.PIECE_SIZE / 2, Constants.PIECE_SIZE, Constants.PIECE_SIZE);
         }
     }
 }

@@ -1,7 +1,4 @@
-/**
- * Created by Alexander on 7/9/2014.
- */
-package net.switcher.game.systems
+package net.switcher.game.systems.grid
 {
     import ash.core.Engine;
     import ash.core.Entity;
@@ -11,6 +8,7 @@ package net.switcher.game.systems
     import net.switcher.game.components.PieceMatch;
     import net.switcher.game.components.TypeComponent;
     import net.switcher.game.nodes.MovingNode;
+    import net.switcher.game.nodes.WillMoveNode;
 
     public class FindMatchesSystem extends BaseGridOperatingSystem
     {
@@ -27,7 +25,7 @@ package net.switcher.game.systems
         {
             grid = nodes.head.grid;
 
-            if (engine.getNodeList(MovingNode).empty)
+            if (engine.getNodeList(MovingNode).empty && engine.getNodeList(WillMoveNode).empty)
             {
                 var matches:Vector.<PieceMatch> = findMatches();
 

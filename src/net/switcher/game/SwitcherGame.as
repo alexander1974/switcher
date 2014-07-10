@@ -9,11 +9,13 @@ package net.switcher.game
     import net.switcher.game.components.Grid;
     import net.switcher.game.display.MouseInputController;
     import net.switcher.game.enum.SystemPriorities;
-    import net.switcher.game.systems.ExplodePiecesSystem;
-    import net.switcher.game.systems.FindGapsSystem;
-    import net.switcher.game.systems.FindMatchesSystem;
-    import net.switcher.game.systems.PieceFallSystem;
-    import net.switcher.game.systems.PieceSpawnerSystem;
+    import net.switcher.game.systems.PieceMovingSystem;
+    import net.switcher.game.systems.PieceSwapSystem;
+    import net.switcher.game.systems.PiecesExplodeSystem;
+    import net.switcher.game.systems.grid.FindGapsSystem;
+    import net.switcher.game.systems.grid.FindMatchesSystem;
+    import net.switcher.game.systems.grid.PieceSpawnerSystem;
+    import net.switcher.game.systems.grid.UserInputControlSysytem;
 
     public class SwitcherGame
     {
@@ -41,13 +43,15 @@ package net.switcher.game
             engine = new Engine();
             creator = new EntityCreator(engine);
             var gameBoard:Entity = creator.createGame();
-
-            engine.addSystem(new FindMatchesSystem(engine), SystemPriorities.makeMatches);
-            engine.addSystem(new ExplodePiecesSystem(gameBoard.get(Grid), container, creator), SystemPriorities.explodePieces);
-            engine.addSystem(new FindGapsSystem(), SystemPriorities.findGaps);
-            engine.addSystem(new PieceFallSystem(gameBoard.get(Grid)), SystemPriorities.fall);
-            engine.addSystem(new PieceSpawnerSystem(creator, container), SystemPriorities.spawn);
             mouseInput = new MouseInputController(container, gameBoard);
+
+            engine.addSystem(new PieceSpawnerSystem(creator, container), SystemPriorities.spawn);
+            engine.addSystem(new FindMatchesSystem(engine), SystemPriorities.makeMatches);
+            engine.addSystem(new PiecesExplodeSystem(gameBoard.get(Grid), creator), SystemPriorities.explodePieces);
+            engine.addSystem(new FindGapsSystem(engine), SystemPriorities.findGaps);
+            engine.addSystem(new PieceSwapSystem(gameBoard.get(Grid)), SystemPriorities.swap);
+            engine.addSystem(new PieceMovingSystem(gameBoard.get(Grid)), SystemPriorities.move);
+            engine.addSystem(new UserInputControlSysytem(engine, mouseInput), SystemPriorities.mouseController);
         }
     }
 }

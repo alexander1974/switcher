@@ -1,4 +1,4 @@
-package net.switcher.game.systems
+package net.switcher.game.systems.grid
 {
     import ash.core.Engine;
     import ash.core.NodeList;
