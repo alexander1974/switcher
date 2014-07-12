@@ -4,10 +4,12 @@ package net.switcher.game.nodes
 
     import net.switcher.game.components.Display;
     import net.switcher.game.components.GridPosition;
+    import net.switcher.game.components.PossibleMove;
 
-    public class RenderNode extends Node
+    public class PossibleMoveNode extends Node
     {
-        public var position:GridPosition;
+        public var gridPosition:GridPosition;
+        public var possibleMove:PossibleMove;
         public var display:Display;
     }
 }

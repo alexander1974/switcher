@@ -1,5 +1,9 @@
 package net.switcher.game.display
 {
+    import com.greensock.TimelineMax;
+    import com.greensock.TweenMax;
+    import com.greensock.data.TweenMaxVars;
+
     import flash.display.DisplayObject;
     import flash.display.MovieClip;
 
@@ -36,6 +40,33 @@ package net.switcher.game.display
             asset.y = Math.round(-asset.height / 2);
             this.asset = asset;
             addChildAt(asset, 0);
+        }
+
+        public function highlight():void
+        {
+            TweenMax.to(asset, 0, {glowFilter: {color: 0xFFFFFF, blurX: 10, blurY: 10, strength: 2, alpha: 1}});
+        }
+
+        public function removeHighlight():void
+        {
+            asset.filters = [];
+        }
+
+        public function pulse():void
+        {
+            TweenMax.to(asset, 0, {glowFilter: {color: 0xFFFFFF, blurX: 10, blurY: 10, strength: 2, alpha: 0}});
+
+            var vars:TweenMaxVars = new TweenMaxVars()
+                    .repeat(-1);
+            new TimelineMax(vars)
+                    .append(TweenMax.to(asset, 1, {glowFilter: {alpha: 1}}))
+                    .append(TweenMax.to(asset, 1, {glowFilter: {alpha: 0}}));
+        }
+
+        public function stopPulsing():void
+        {
+            TweenMax.killTweensOf(asset);
+            removeHighlight();
         }
 
         private function setCanvas():void

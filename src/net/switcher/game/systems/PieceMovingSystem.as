@@ -12,6 +12,8 @@ package net.switcher.game.systems
     import net.switcher.game.Constants;
     import net.switcher.game.components.Grid;
     import net.switcher.game.components.Moving;
+    import net.switcher.game.components.PieceSwap;
+    import net.switcher.game.components.PieceSwapBack;
     import net.switcher.game.components.WillMove;
     import net.switcher.game.nodes.WillMoveNode;
 
@@ -39,6 +41,11 @@ package net.switcher.game.systems
                     .onComplete(function ():void
                     {
                         piece.remove(Moving);
+                        if (piece.has(PieceSwapBack))
+                        {
+                            var swapBack:PieceSwapBack = piece.remove(PieceSwapBack);
+                            piece.add(new PieceSwap(swapBack.destination, true));
+                        }
                     });
 
             var tween:TweenMax = new TweenMax(pieceSprite, Constants.MOVE_DURATION, vars);

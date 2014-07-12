@@ -10,10 +10,9 @@ package net.switcher.game.display
     import net.switcher.game.components.Display;
     import net.switcher.game.components.Grid;
     import net.switcher.game.components.GridPosition;
-    import net.switcher.game.components.PieceHighlight;
     import net.switcher.game.components.PieceSwap;
     import net.switcher.game.enum.GridDirection;
-    import net.switcher.game.helpers.BoardHelper;
+    import net.switcher.game.helpers.GridHelper;
 
     public class MouseInputController
     {
@@ -54,18 +53,17 @@ package net.switcher.game.display
         {
             displayObjectContainer.addEventListener(MouseEvent.MOUSE_UP, handleMouseUp);
 
-            var pos:GridPosition = BoardHelper.mouseEventToGridPosition(event);
+            var pos:GridPosition = GridHelper.mouseEventToGridPosition(event);
             var grid:Grid = gameBoard.get(Grid) as Grid;
             var piece:Entity = grid.getPieceAtPosition(pos);
 
             if (piece)
             {
-                piece.add(new PieceHighlight());
+                var pieceSprite:PieceSprite = (piece.get(Display) as Display).displayObject as PieceSprite;
+                pieceSprite.highlight();
 
                 touchedPiece = piece;
                 touchBeganLocation = new Point(event.stageX, event.stageY);
-
-                //board.clearPieceComponentsOfType( PieceSwap );
             }
         }
 
@@ -83,7 +81,7 @@ package net.switcher.game.display
 
             var pieceSprite:PieceSprite = (piece.get(Display) as Display).displayObject as PieceSprite;
             var piecePosition:GridPosition = piece.get(GridPosition) as GridPosition;
-            var center:Point = BoardHelper.gridPositionToPoint(piecePosition);
+            var center:Point = GridHelper.gridPositionToPoint(piecePosition);
 
             var oldLoc:Point = touchBeganLocation;
             var newLoc:Point = new Point(event.stageX, event.stageY);
@@ -92,6 +90,12 @@ package net.switcher.game.display
             {
                 oldLoc = new Point(event.stageX, event.stageY);
                 newLoc = lastClickedPiecePosition;
+            }
+
+            if (lastClickedPiece)
+            {
+                var lastSprite:PieceSprite = (lastClickedPiece.get(Display) as Display).displayObject as PieceSprite;
+                lastSprite.removeHighlight();
             }
 
             lastClickedPiece = piece;
@@ -144,8 +148,9 @@ package net.switcher.game.display
                         direction = GridDirection.GridDirectionUp;
                     }
                 }
-                piece.add(new PieceSwap(direction));
+                piece.add(new PieceSwap(piecePosition.positionPlusDirection(direction)));
 
+                pieceSprite.removeHighlight();
                 lastClickedPiece = null;
                 lastClickedPiecePosition = null;
             }

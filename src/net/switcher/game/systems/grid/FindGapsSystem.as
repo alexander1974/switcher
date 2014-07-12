@@ -9,7 +9,7 @@ package net.switcher.game.systems.grid
     import net.switcher.game.components.Moving;
     import net.switcher.game.components.WillMove;
     import net.switcher.game.enum.GridDirection;
-    import net.switcher.game.helpers.BoardHelper;
+    import net.switcher.game.helpers.GridHelper;
     import net.switcher.game.nodes.MovingNode;
     import net.switcher.game.nodes.WillMoveNode;
 
@@ -49,7 +49,7 @@ package net.switcher.game.systems.grid
                                     destinationPosition = position.positionPlusDirection(GridDirection.GridDirectionDown);
                                     grid.removePieceAtPosition(position);
                                     grid.setPieceAtPosition(piece, destinationPosition);
-                                    piece.add(new WillMove(BoardHelper.gridPositionToPoint(destinationPosition)));
+                                    piece.add(new WillMove(GridHelper.gridPositionToPoint(destinationPosition)));
                                     piece.remove(GridPosition);
                                     piece.add(destinationPosition);
                                 }

@@ -12,10 +12,12 @@ package net.switcher.game
     import net.switcher.game.systems.PieceMovingSystem;
     import net.switcher.game.systems.PieceSwapSystem;
     import net.switcher.game.systems.PiecesExplodeSystem;
+    import net.switcher.game.systems.PulsePossibleMovesSystem;
     import net.switcher.game.systems.grid.FindGapsSystem;
     import net.switcher.game.systems.grid.FindMatchesSystem;
+    import net.switcher.game.systems.grid.FindPossibleMovesSystem;
     import net.switcher.game.systems.grid.PieceSpawnerSystem;
-    import net.switcher.game.systems.grid.UserInputControlSysytem;
+    import net.switcher.game.systems.grid.UserInputControlSystem;
 
     public class SwitcherGame
     {
@@ -47,11 +49,13 @@ package net.switcher.game
 
             engine.addSystem(new PieceSpawnerSystem(creator, container), SystemPriorities.spawn);
             engine.addSystem(new FindMatchesSystem(engine), SystemPriorities.makeMatches);
+            engine.addSystem(new FindPossibleMovesSystem(engine), SystemPriorities.makeMatches);
             engine.addSystem(new PiecesExplodeSystem(gameBoard.get(Grid), creator), SystemPriorities.explodePieces);
             engine.addSystem(new FindGapsSystem(engine), SystemPriorities.findGaps);
             engine.addSystem(new PieceSwapSystem(gameBoard.get(Grid)), SystemPriorities.swap);
             engine.addSystem(new PieceMovingSystem(gameBoard.get(Grid)), SystemPriorities.move);
-            engine.addSystem(new UserInputControlSysytem(engine, mouseInput), SystemPriorities.mouseController);
+            engine.addSystem(new UserInputControlSystem(engine, mouseInput), SystemPriorities.mouseController);
+            engine.addSystem(new PulsePossibleMovesSystem(), SystemPriorities.idle);
         }
     }
 }

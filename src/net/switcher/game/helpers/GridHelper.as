@@ -6,7 +6,7 @@ package net.switcher.game.helpers
     import net.switcher.game.Constants;
     import net.switcher.game.components.GridPosition;
 
-    public class BoardHelper
+    public class GridHelper
     {
         public static function gridPositionToPoint(pos:GridPosition):Point
         {
@@ -18,5 +18,7 @@ package net.switcher.game.helpers
             return new GridPosition(int((event.localX + Constants.PIECE_SIZE / 2) / Constants.PIECE_SIZE),
                     int((((Constants.BOARD_HEIGHT) * Constants.PIECE_SIZE) - (event.localY + Constants.PIECE_SIZE / 2)) / Constants.PIECE_SIZE));
         }
+
+
     }
 }

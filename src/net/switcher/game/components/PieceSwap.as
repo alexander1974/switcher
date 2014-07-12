@@ -1,14 +1,14 @@
 package net.switcher.game.components
 {
-    import net.switcher.game.enum.GridDirection;
-
     public class PieceSwap
     {
-        public function PieceSwap(direction:GridDirection)
+        public function PieceSwap(destination:GridPosition, isSwappingBack:Boolean = false)
         {
-            this.direction = direction;
+            this.destination = destination;
+            this.isSwapingBack = isSwappingBack;
         }
 
-        public var direction:GridDirection;
+        public var destination:GridPosition;
+        public var isSwapingBack:Boolean;
     }
 }

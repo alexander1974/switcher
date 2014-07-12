@@ -105,5 +105,86 @@ package net.switcher.game.components
             }
             return cols;
         }
+
+        public function canSwapPieceWithPiece(piece:Entity, otherPiece:Entity):Boolean
+        {
+            if (!piece || !otherPiece)
+            {
+                return false;
+            }
+
+            var pos:GridPosition = piece.get(GridPosition) as GridPosition;
+            var otherPos:GridPosition = otherPiece.get(GridPosition) as GridPosition;
+
+            // try swap
+            setPieceAtPosition(piece, otherPos);
+            setPieceAtPosition(otherPiece, pos);
+            var matches:Boolean = hasMatchAtPos(pos) || hasMatchAtPos(otherPos);
+            setPieceAtPosition(piece, pos);
+            setPieceAtPosition(otherPiece, otherPos);
+            return matches;
+        }
+
+        private function hasMatchAtPos(pos:GridPosition):Boolean
+        {
+            var matchSize:int;
+            var matchType:String;
+            var xStart:int;
+            var xEnd:int;
+            var yStart:int;
+            var yEnd:int;
+
+            xStart = Math.max(pos.x - 2, 0);
+            xEnd = Math.min(pos.x + 2, Constants.BOARD_WIDTH - 1);
+            matchSize = 0;
+            matchType = "";
+
+            var x:int;
+            var currentType:String;
+
+            for (x = xStart; x <= xEnd; x++)
+            {
+                currentType = (getPieceAtPosition(new GridPosition(x, pos.y)).get(TypeComponent) as TypeComponent).pieceType.value;
+                if (matchType == currentType && currentType != "")
+                {
+                    matchSize++;
+                    if (matchSize >= 3)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    matchType = currentType;
+                    matchSize = 1;
+                }
+            }
+            yStart = Math.max(pos.y - 2, 0);
+            yEnd = Math.min(pos.y + 2, Constants.BOARD_HEIGHT - 1);
+            matchSize = 0;
+            matchType = "";
+
+            var y:int;
+
+            for (y = yStart; y <= yEnd; y++)
+            {
+                currentType = (getPieceAtPosition(new GridPosition(pos.x, y)).get(TypeComponent) as TypeComponent).pieceType.value;
+                if (matchType == currentType && currentType != "")
+                {
+                    matchSize++;
+                    if (matchSize >= 3)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    matchType = currentType;
+                    matchSize = 1;
+                }
+            }
+
+            return false;
+        }
     }
 }

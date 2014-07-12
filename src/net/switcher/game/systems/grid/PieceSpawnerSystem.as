@@ -14,7 +14,7 @@ package net.switcher.game.systems.grid
     import net.switcher.game.components.Moving;
     import net.switcher.game.components.WillMove;
     import net.switcher.game.enum.GridDirection;
-    import net.switcher.game.helpers.BoardHelper;
+    import net.switcher.game.helpers.GridHelper;
 
     public class PieceSpawnerSystem extends BaseGridOperatingSystem
     {
@@ -49,7 +49,7 @@ package net.switcher.game.systems.grid
                     grid.setPieceAtPosition(piece, gridPosition);
 
                     var displayObject:DisplayObject = (piece.get(Display) as Display).displayObject;
-                    var point:Point = BoardHelper.gridPositionToPoint(gridPosition);
+                    var point:Point = GridHelper.gridPositionToPoint(gridPosition);
 
                     displayObject.x = point.x;
                     displayObject.y = point.y;

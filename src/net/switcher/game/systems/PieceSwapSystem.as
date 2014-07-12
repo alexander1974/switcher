@@ -8,8 +8,9 @@ package net.switcher.game.systems
     import net.switcher.game.components.Grid;
     import net.switcher.game.components.GridPosition;
     import net.switcher.game.components.PieceSwap;
+    import net.switcher.game.components.PieceSwapBack;
     import net.switcher.game.components.WillMove;
-    import net.switcher.game.helpers.BoardHelper;
+    import net.switcher.game.helpers.GridHelper;
     import net.switcher.game.nodes.PieceSwapNode;
 
     public class PieceSwapSystem extends ListIteratingSystem
@@ -25,13 +26,18 @@ package net.switcher.game.systems
         private function updateNode(node:PieceSwapNode, time:Number):void
         {
             var startPosition:GridPosition = node.position;
-            var endPosition:GridPosition = startPosition.positionPlusDirection(node.pieceSwap.direction);
+            var endPosition:GridPosition = node.pieceSwap.destination;
 
             var piece1:Entity = grid.removePieceAtPosition(startPosition);
             var piece2:Entity = grid.removePieceAtPosition(endPosition);
 
-            var point1:Point = BoardHelper.gridPositionToPoint(startPosition);
-            var point2:Point = BoardHelper.gridPositionToPoint(endPosition);
+            if (!node.pieceSwap.isSwapingBack && !grid.canSwapPieceWithPiece(piece1, piece2))
+            {
+                piece1.add(new PieceSwapBack(startPosition));
+            }
+
+            var point1:Point = GridHelper.gridPositionToPoint(startPosition);
+            var point2:Point = GridHelper.gridPositionToPoint(endPosition);
 
             piece1.remove(PieceSwap);
             piece1.add(new WillMove(point2));

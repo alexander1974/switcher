@@ -5,6 +5,7 @@ package net.switcher.game
 
     import net.switcher.game.components.Display;
     import net.switcher.game.components.Grid;
+    import net.switcher.game.components.PulsePossibleMoves;
     import net.switcher.game.components.TypeComponent;
     import net.switcher.game.display.PieceSprite;
     import net.switcher.game.display.SpriteFactory;
@@ -27,8 +28,9 @@ package net.switcher.game
 
         public function createGame():Entity
         {
-            var gameBoard:Entity = new Entity()
-                    .add(new Grid());
+            var gameBoard:Entity = new Entity("gameBoard")
+                    .add(new Grid())
+                    .add(new PulsePossibleMoves(false));
 
             engine.addEntity(gameBoard);
             return gameBoard;
