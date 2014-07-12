@@ -14,16 +14,16 @@ package net.switcher.game.systems.grid
     {
         private static const TIME_TO_DISPLAY_HINT:int = 6000;
 
+        private var engine:Engine;
+        private var mouseInputController:MouseInputController;
+        private var lastMoveTime:Number;
+
         public function UserInputControlSystem(engine:Engine, mouseInputController:MouseInputController)
         {
             super();
             this.engine = engine;
             this.mouseInputController = mouseInputController;
         }
-
-        private var engine:Engine;
-        private var mouseInputController:MouseInputController;
-        private var lastMoveTime:Number;
 
         override public function update(time:Number):void
         {

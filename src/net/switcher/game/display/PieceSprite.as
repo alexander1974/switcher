@@ -11,6 +11,8 @@ package net.switcher.game.display
 
     public class PieceSprite extends MovieClip
     {
+        private var asset:DisplayObject;
+
         public function PieceSprite(asset:DisplayObject)
         {
             super();
@@ -19,8 +21,6 @@ package net.switcher.game.display
             setCanvas();
             setTexture(asset);
         }
-
-        private var asset:DisplayObject;
 
         public function removeFromParent():void
         {

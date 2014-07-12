@@ -15,13 +15,13 @@ package net.switcher.game.systems
 
     public class PieceSwapSystem extends ListIteratingSystem
     {
+        private var grid:Grid;
+
         public function PieceSwapSystem(grid:Grid)
         {
             super(PieceSwapNode, updateNode);
             this.grid = grid;
         }
-
-        private var grid:Grid;
 
         private function updateNode(node:PieceSwapNode, time:Number):void
         {

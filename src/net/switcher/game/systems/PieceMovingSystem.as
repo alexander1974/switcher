@@ -19,13 +19,13 @@ package net.switcher.game.systems
 
     public class PieceMovingSystem extends ListIteratingSystem
     {
+        private var grid:Grid;
+
         public function PieceMovingSystem(grid:Grid)
         {
             super(WillMoveNode, updateNode);
             this.grid = grid;
         }
-
-        private var grid:Grid;
 
         public function updateNode(node:WillMoveNode, time:Number):void
         {

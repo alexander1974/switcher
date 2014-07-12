@@ -16,15 +16,15 @@ package net.switcher.game.systems
 
     public class PiecesExplodeSystem extends ListIteratingSystem
     {
+        private var grid:Grid;
+        private var creator:EntityCreator;
+
         public function PiecesExplodeSystem(grid:Grid, creator:EntityCreator)
         {
             super(ExplodingNode, updateNode);
             this.grid = grid;
             this.creator = creator;
         }
-
-        private var grid:Grid;
-        private var creator:EntityCreator;
 
         private function updateNode(node:ExplodingNode, time:Number):void
         {

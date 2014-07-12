@@ -16,14 +16,6 @@ package net.switcher.game.display
 
     public class MouseInputController
     {
-        public function MouseInputController(displayObjectContainer:DisplayObjectContainer, gameBoard:Entity)
-        {
-            this.displayObjectContainer = displayObjectContainer;
-            this.gameBoard = gameBoard;
-
-            this.displayObjectContainer.mouseChildren = false;
-        }
-
         private var displayObjectContainer:DisplayObjectContainer;
         private var gameBoard:Entity;
         private var userInteractionEnabled:Boolean;
@@ -31,6 +23,14 @@ package net.switcher.game.display
         private var touchBeganLocation:Point;
         private var lastClickedPiece:Entity;
         private var lastClickedPiecePosition:Point;
+
+        public function MouseInputController(displayObjectContainer:DisplayObjectContainer, gameBoard:Entity)
+        {
+            this.displayObjectContainer = displayObjectContainer;
+            this.gameBoard = gameBoard;
+
+            this.displayObjectContainer.mouseChildren = false;
+        }
 
         public function blockInteraction():void
         {

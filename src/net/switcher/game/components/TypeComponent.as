@@ -4,11 +4,12 @@ package net.switcher.game.components
 
     public class TypeComponent
     {
+        public var pieceType:PieceType;
+
         public function TypeComponent(pieceType:PieceType)
         {
             this.pieceType = pieceType;
         }
 
-        public var pieceType:PieceType;
     }
 }

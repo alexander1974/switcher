@@ -16,12 +16,12 @@ package net.switcher.game.enum
             PieceTypeYellow
         ];
 
+        private var _value:String;
+
         public function PieceType(value:String)
         {
             _value = value;
         }
-
-        private var _value:String;
 
         public function get value():String
         {

@@ -4,11 +4,12 @@ package net.switcher.game.components
 
     public class WillMove
     {
+        public var destinationPoint:Point;
+
         public function WillMove(destinationPoint:Point)
         {
             this.destinationPoint = destinationPoint;
         }
 
-        public var destinationPoint:Point;
     }
 }

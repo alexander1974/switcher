@@ -14,12 +14,12 @@ package net.switcher.game
 
     public class EntityCreator
     {
+        private var engine:Engine;
+
         public function EntityCreator(engine:Engine)
         {
             this.engine = engine;
         }
-
-        private var engine:Engine;
 
         public function destroyEntity(entity:Entity):void
         {

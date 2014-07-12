@@ -6,6 +6,8 @@ package net.switcher.game.components
 
     public class Grid
     {
+        private var _cells:Vector.<Vector.<Entity>>;
+
         public function Grid()
         {
             _cells = new <Vector.<Entity>>[];
@@ -21,8 +23,6 @@ package net.switcher.game.components
                 _cells.push(row);
             }
         }
-
-        private var _cells:Vector.<Vector.<Entity>>;
 
         public function get cells():Vector.<Vector.<Entity>>
         {

@@ -18,15 +18,15 @@ package net.switcher.game.systems.grid
 
     public class PieceSpawnerSystem extends BaseGridOperatingSystem
     {
+        private var entityCreator:EntityCreator;
+        private var container:DisplayObjectContainer;
+
         public function PieceSpawnerSystem(entityCreator:EntityCreator, container:DisplayObjectContainer)
         {
             super();
             this.entityCreator = entityCreator;
             this.container = container;
         }
-
-        private var entityCreator:EntityCreator;
-        private var container:DisplayObjectContainer;
 
         override public function update(time:Number):void
         {

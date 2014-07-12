@@ -15,13 +15,13 @@ package net.switcher.game.systems.grid
 
     public class FindGapsSystem extends BaseGridOperatingSystem
     {
+        private var engine:Engine;
+
         public function FindGapsSystem(engine:Engine)
         {
             super();
             this.engine = engine;
         }
-
-        private var engine:Engine;
 
         override public function update(time:Number):void
         {

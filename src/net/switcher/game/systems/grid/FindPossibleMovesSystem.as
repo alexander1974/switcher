@@ -13,14 +13,14 @@ package net.switcher.game.systems.grid
 
     public class FindPossibleMovesSystem extends BaseGridOperatingSystem
     {
+        private var engine:Engine;
+        private var grid:Grid;
+
         public function FindPossibleMovesSystem(engine:Engine)
         {
             super();
             this.engine = engine;
         }
-
-        private var engine:Engine;
-        private var grid:Grid;
 
         override public function update(time:Number):void
         {
